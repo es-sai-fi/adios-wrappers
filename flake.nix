@@ -6,7 +6,7 @@
 
   outputs = inputs: {
     wrapperModules = import ./default.nix {
-      adiosPath = inputs.adios.outPath;
+      adios = inputs.adios;
     };
   };
 }
