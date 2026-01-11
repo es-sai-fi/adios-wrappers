@@ -95,7 +95,7 @@ let
   pkgs = import sources.nixpkgs { };
   inherit (pkgs) lib;
   adios = import "${sources.adios}/adios";
-  adios-wrappers = import sources.adios-wrappers { adiosPath = sources.adios.outPath; };
+  adios-wrappers = import sources.adios-wrappers { adios = sources.adios; };
 
   # Allow overriding the vendored wrappers with your own config.
   #
