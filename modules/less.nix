@@ -21,22 +21,21 @@ in {
         Disjoint with the `configFile` option.
       '';
     };
+
+    # TODO: add rfc42 variants of the #command and #line-edit sections
     configFile = {
       type = types.pathLike;
       description = ''
-        File containing flags to be automatically appended when running less.
+        `lesskey` file to be injected into the wrapped package.
+
+        This file doesn't just contain keybinds, but can also set flags with the
+        `#env` section.
 
         See the documentation for valid options:
-        https://man7.org/linux/man-pages/man1/less.1.html#:~:text=OPTIONS,-top
+        https://man7.org/linux/man-pages/man1/lesskey.1.html
 
-        Disjoint with the `settings` option.
+        Disjoint with the `flags` option.
       '';
-    };
-
-    # TODO: change this to configFile, and add individual RFC42 options that
-    # modify each of the sections.
-    keybindsFile = {
-      type = types.pathLike;
     };
 
     package = {
@@ -52,20 +51,11 @@ in {
       inherit (builtins) concatStringsSep;
     in
     assert !(options ? flags && options ? configFile);
-    assert !(options ? keybinds && options ? keybindsFile);
     inputs.mkWrapper {
       inherit (options) package;
       environment = {
-        LESS =
-          if options ? flags then
-            concatStringsSep " " options.flags
-          else if options ? configFile then {
-            readFromFile = true;
-            value = options.configFile;
-          }
-          else null;
-        LESSKEY_CONTENT = options.keybinds or null;
-        LESSKEYIN = options.keybindsFile or null;
+        LESS = if options ? flags then concatStringsSep " " options.flags else null;
+        LESSKEYIN = options.configFile or null;
       };
     };
 }
