@@ -1,11 +1,12 @@
 /*
   Usage:
-  nix run -f dev/generate-docs > docs/options.json
+  nix run --impure -E 'import ./dev/generate-docs {}' > docs/options.json
 */
-let
-  flake = builtins.getFlake (toString ../../.);
-  pkgs = import flake.inputs.nixpkgs {};
-in
+{
+  flake ? builtins.getFlake (toString ../../.),
+  pkgs ? import flake.inputs.nixpkgs {},
+}:
+
 pkgs.writeShellApplication {
   name = "generate-docs";
   runtimeInputs = [ pkgs.jq ];
