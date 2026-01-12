@@ -144,15 +144,12 @@
 
   "less": {
     "configFile": {
-      "description": "File containing flags to be automatically appended when running less. See the documentation for valid options: https://man7.org/linux/man-pages/man1/less.1.html#:~:text=OPTIONS,-top Disjoint with the `settings` option.",
+      "description": "`lesskey` file to be injected into the wrapped package. This file doesn't just contain keybinds, but can also set flags with the `#env` section. See the documentation for valid options: https://man7.org/linux/man-pages/man1/lesskey.1.html Disjoint with the `flags` option.",
       "type": "union<path,derivation,string>"
     },
     "flags": {
       "description": "Flags to be automatically appended when running less. See the documentation for valid options: https://man7.org/linux/man-pages/man1/less.1.html#:~:text=OPTIONS,-top Disjoint with the `configFile` option.",
       "type": "listOf<string>"
-    },
-    "keybindsFile": {
-      "type": "union<path,derivation,string>"
     },
     "package": {
       "description": "The less package to be wrapped.",
