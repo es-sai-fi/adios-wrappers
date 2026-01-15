@@ -84,7 +84,13 @@ in {
         mkdir -p $out/git
       '';
       symlinks = {
-        "$out/git/config" = options.configFile or (writeText "config" (toGitINI options.settings));
+        "$out/git/config" =
+          if options ? configFile then
+            options.configFile
+          else if options ? settings then
+            (writeText "config" (toGitINI options.settings))
+          else
+            null;
         "$out/git/ignore" =
           if options ? ignoreFile then
             options.ignoreFile

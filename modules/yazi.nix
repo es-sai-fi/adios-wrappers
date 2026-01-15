@@ -139,9 +139,27 @@ in {
         mkdir -p $out/yazi/plugins
       '';
       symlinks = {
-        "$out/yazi/yazi.toml" = options.settingsFile or (generator.generate "yazi.toml" options.settings);
-        "$out/yazi/keymap.toml" = options.keymapFile or (generator.generate "keymap.toml" options.keymap);
-        "$out/yazi/init.lua" = options.initLuaFile or (writeText "init.lua" options.initLua);
+        "$out/yazi/yazi.toml" =
+          if options ? settingsFile then
+            options.settingsFile
+          else if options ? settings then
+            generator.generate "yazi.toml" options.settings
+          else
+            null;
+        "$out/yazi/keymap.toml" =
+          if options ? keymapFile then
+            options.keymapFile
+          else if options ? keymap then
+            generator.generate "keymap.toml" options.keymap
+          else
+            null;
+        "$out/yazi/init.lua" =
+          if options ? initLuaFile then
+            options.initLuaFile
+          else if options ? initLua then
+            generator.generate "init.lua" options.initLua
+          else
+            null;
       } // listToAttrs (
         attrValues (
           mapAttrs (name: value: {

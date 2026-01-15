@@ -40,11 +40,13 @@ in {
       inputs.mkWrapper {
         inherit (options) package flags;
       }
-    else
+    else if options ? configFile then
       inputs.mkWrapper {
         inherit (options) package;
         environment = {
           BAT_CONFIG_PATH = options.configFile;
         };
-      };
+      }
+    else
+      options.package;
 }

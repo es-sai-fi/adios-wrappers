@@ -47,11 +47,10 @@ in {
 
   impl =
     { options, inputs }:
-    if !options ? excludedDirs then options.package
-    else inputs.mkWrapper {
+    inputs.mkWrapper {
       inherit (options) package;
       environment = {
-        _ZO_EXCLUDE_DIRS = options.excludedDirs;
+        _ZO_EXCLUDE_DIRS = options.excludedDirs or null;
       };
     };
 }

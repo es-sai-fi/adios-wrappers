@@ -53,9 +53,13 @@ in {
             assert !(options ? settings && options ? configFile);
             {
               inherit (options) package;
-              environment = {
-                STARSHIP_CONFIG = options.configFile or (generator.generate "starship.toml" options.settings);
-              };
+              environment.STARSHIP_CONFIG =
+                if options ? configFile then
+                  options.configFile
+                else if options ? settings then
+                  generator.generate "starship.toml" options.settings
+                else
+                  null;
             };
         in
         # Allow mutators to change the default value, with the mutators taking

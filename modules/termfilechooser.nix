@@ -48,7 +48,13 @@ in {
         mkdir -p $out/xdg-desktop-portal-termfilechooser
       '';
       symlinks = {
-        "$out/xdg-desktop-portal-termfilechooser/config" = options.configFile or (generator.generate "config" options.settings);
+        "$out/xdg-desktop-portal-termfilechooser/config" =
+          if options ? configFile then
+            options.configFile
+          else if options ? settings then
+            (generator.generate "config" options.settings)
+          else
+            null;
       };
       environment = {
         XDG_CONFIG_HOME = "$out";

@@ -54,7 +54,7 @@ in {
       inputs.mkWrapper {
         name = "rg";
         environment = {
-          RIPGREP_CONFIG_PATH = options.configFile;
+          RIPGREP_CONFIG_PATH = options.configFile or null;
         };
       };
 }
