@@ -100,12 +100,9 @@ in
           listToAttrs (
             map (
               name:
-              let
-                value = options.themes.${name};
-              in
               {
                 name = "$out/helix/themes/${name}.toml";
-                value = tomlGenerator.generate "${name}.toml" value;
+                value = tomlGenerator.generate "${name}.toml" options.themes.${name};
               }
             ) (attrNames options.themes)
           )
