@@ -53,11 +53,12 @@ in {
       '';
       symlinks = {
         "$out/alacritty/alacritty.toml" =
-          if options ? configFile
-            then options.configFile
-          else if options ? settings
-            then generator.generate "alacritty.toml" options.settings
-          else null;
+          if options ? configFile then
+            options.configFile
+          else if options ? settings then
+            generator.generate "alacritty.toml" options.settings
+          else
+            null;
       };
       flags = ["--config-file" "$out/alacritty/alacritty.toml"];
     };

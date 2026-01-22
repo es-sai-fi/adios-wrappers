@@ -72,20 +72,22 @@ in {
         environment = {
           XDG_CONFIG_HOME = "$out";
           DISCORDO_TOKEN =
-            if options ? tokenFile
-            then {
-              value = options.tokenFile;
-              readFromFile = true;
-            }
-            else null;
+            if options ? tokenFile then
+              {
+                value = options.tokenFile;
+                readFromFile = true;
+              }
+            else
+              null;
         };
         symlinks = {
           "$out/discordo/config.toml" =
-            if options ? configFile
-            then options.configFile
-            else if options ? settings
-            then generator.generate "config.toml" options.settings
-            else null;
+            if options ? configFile then
+              options.configFile
+            else if options ? settings then
+              generator.generate "config.toml" options.settings
+            else
+              null;
         };
       };
 }
