@@ -91,10 +91,10 @@ in
   impl =
     { options, inputs }:
     let
-      inherit (inputs.nixpkgs.lib) concatStringsSep mapAttrsToList;
+      inherit (builtins) concatStringsSep attrNames;
       inherit (inputs.nixpkgs.pkgs) writeText;
       format =
-        input: concatStringsSep "\n" (mapAttrsToList (name: value: "$env.${name} = \"${value}\"") input);
+        attrs: concatStringsSep "\n" (map (name: "$env.${name} = \"${attrs.${name}}\"") (attrNames attrs));
 
       configFlag =
         if options ? configFile then
