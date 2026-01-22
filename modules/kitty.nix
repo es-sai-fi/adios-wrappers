@@ -71,12 +71,13 @@ in {
     { options, inputs }:
     let
       inherit (builtins) concatStringsSep;
-      inherit (inputs.nixpkgs) pkgs lib;
+      inherit (inputs.nixpkgs.pkgs) formats;
+      inherit (inputs.nixpkgs.lib) generators;
       # Slightly modified from hjr source - the one defined in hm does a lot of
       # extra nonsense, that im hoping isnt necessary
-      generator = pkgs.formats.keyValue {
+      generator = formats.keyValue {
         listToValue = list: concatStringsSep " " (map toString list);
-        mkKeyValue = lib.generators.mkKeyValueDefault {
+        mkKeyValue = generators.mkKeyValueDefault {
           mkValueString =
             value:
             if value == true then
@@ -84,7 +85,7 @@ in {
             else if value == false then
               "no"
             else
-              lib.generators.mkValueStringDefault {} value;
+              generators.mkValueStringDefault {} value;
         } " ";
       };
     in
