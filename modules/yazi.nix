@@ -128,6 +128,7 @@ in {
     };
     plugins = {
       type = types.attrsOf types.pathLike;
+      default = {};
       description = ''
         Attribute set of plugins to be injected into the wrapped package.
 
@@ -136,6 +137,7 @@ in {
     };
     flavors = {
       type = types.attrsOf types.pathLike;
+      default = {};
       description = ''
         Attribute set of flavors to be injected into the wrapped package.
 
