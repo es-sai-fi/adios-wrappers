@@ -65,10 +65,10 @@ in {
       '';
       symlinks = {
         "$out/jj-config/config.toml" =
-          if options ? configFile
-            then options.configFile
-          else if options ? settings
-            then generator.generate "config.toml" options.settings
+          if options ? configFile then
+            options.configFile
+          else if options ? settings then
+            generator.generate "config.toml" options.settings
           else
             null;
       };
