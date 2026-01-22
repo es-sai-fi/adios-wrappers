@@ -1,4 +1,4 @@
-{adios}:
+{ adios }:
 let
   inherit (adios) types;
 in {
@@ -36,7 +36,7 @@ in {
     package = {
       type = types.derivation;
       description = "The tealdeer package to be wrapped.";
-      defaultFunc = {inputs}: inputs.nixpkgs.pkgs.tealdeer;
+      defaultFunc = { inputs }: inputs.nixpkgs.pkgs.tealdeer;
     };
   };
 
@@ -54,11 +54,12 @@ in {
       '';
       symlinks = {
         "$out/tealdeer-config/config.toml" =
-          if options ? configFile
-            then options.configFile
-          else if options ? settings
-            then generator.generate "config.toml" options.settings
-          else null;
+          if options ? configFile then
+            options.configFile
+          else if options ? settings then
+            generator.generate "config.toml" options.settings
+          else
+            null;
       };
       environment = {
         TEALDEER_CONFIG_DIR = "$out/tealdeer-config";
