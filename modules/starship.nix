@@ -47,7 +47,7 @@ in {
         { mutators, inputs, options }:
         let
           inherit (inputs.nixpkgs.lib) recursiveUpdate;
-          inherit (adios.lib.mergeFuncs) mergeAttrsRecursively;
+          inherit (adios.lib) merge;
           generator = inputs.nixpkgs.pkgs.formats.toml {};
           default =
             assert !(options ? settings && options ? configFile);
@@ -64,9 +64,7 @@ in {
         in
         # Allow mutators to change the default value, with the mutators taking
         # priority if the key is the same
-        recursiveUpdate default (mergeAttrsRecursively {
-          inherit mutators;
-        });
+        recursiveUpdate default (merge.attrs.recursively { inherit mutators; });
     };
 
     package = {

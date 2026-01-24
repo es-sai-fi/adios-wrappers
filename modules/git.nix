@@ -21,7 +21,7 @@ in {
         Disjoint with the `configFile` option.
       '';
       mutatorType = types.attrs;
-      mergeFunc = adios.lib.mergeFuncs.mergeAttrsRecursively;
+      mergeFunc = adios.lib.merge.attrs.recursively;
     };
     configFile = {
       type = types.pathLike;

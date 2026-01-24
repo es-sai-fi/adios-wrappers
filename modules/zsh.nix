@@ -19,7 +19,7 @@ in {
         Disjoint with the `zshrcFiles` option.
       '';
       mutatorType = types.string;
-      mergeFunc = adios.lib.mergeFuncs.concatLines;
+      mergeFunc = adios.lib.merge.strings.concatLines;
     };
     extraZshrc = {
       type = types.string;
@@ -29,7 +29,7 @@ in {
         Disjoint with the `zshrcFiles` option.
       '';
       mutatorType = types.string;
-      mergeFunc = adios.lib.mergeFuncs.concatLines;
+      mergeFunc = adios.lib.merge.strings.concatLines;
     };
     zshrcFiles = {
       type = types.listOf types.pathLike;
@@ -39,7 +39,7 @@ in {
         Disjoint with the `zshrc` option.
       '';
       mutatorType = types.listOf types.pathLike;
-      mergeFunc = adios.lib.mergeFuncs.concatLists;
+      mergeFunc = adios.lib.merge.lists.concat;
     };
     extraZshrcFiles = {
       type = types.listOf types.pathLike;
@@ -49,7 +49,7 @@ in {
         Disjoint with the `zshrc` option.:
       '';
       mutatorType = types.listOf types.pathLike;
-      mergeFunc = adios.lib.mergeFuncs.concatLists;
+      mergeFunc = adios.lib.merge.lists.concat;
     };
 
     extraPackages = {
@@ -58,7 +58,7 @@ in {
         Runtime dependencies to be injected into the wrapped package's path.
       '';
       mutatorType = types.listOf types.pathLike;
-      mergeFunc = adios.lib.mergeFuncs.concatLists;
+      mergeFunc = adios.lib.merge.lists.concat;
     };
 
     package = {

@@ -29,7 +29,7 @@ in {
         Disjoint with the `completions` option.
       '';
       mutatorType = types.listOf types.pathLike;
-      mergeFunc = adios.lib.mergeFuncs.concatLists;
+      mergeFunc = adios.lib.merge.lists.concat;
     };
 
     functions = {
@@ -50,7 +50,7 @@ in {
         Disjoint with the `functions` option.
       '';
       mutatorType = types.listOf types.pathLike;
-      mergeFunc = adios.lib.mergeFuncs.concatLists;
+      mergeFunc = adios.lib.merge.lists.concat;
     };
 
     abbreviations = {

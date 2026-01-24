@@ -21,7 +21,7 @@ in {
         Disjoint with the `configFile` option.
       '';
       mutatorType = types.string;
-      mergeFunc = adios.lib.mergeFuncs.concatLines;
+      mergeFunc = adios.lib.merge.strings.concatLines;
     };
     configFile = {
       type = types.pathLike;
@@ -61,7 +61,7 @@ in {
         Disjoint with the `environmentFile` option.
       '';
       mutatorType = types.attrs;
-      mergeFunc = adios.lib.mergeFuncs.mergeAttrsRecursively;
+      mergeFunc = adios.lib.merge.attrs.recursively;
     };
     environmentFile = {
       type = types.pathLike;
